@@ -1,0 +1,17 @@
+version: '3'
+services:
+  riot-api-publisher-discord-bot:
+    build:
+      context: .
+    command: python3.8 ./riot-api-publisher/main.py
+    restart: unless-stopped
+    volumes:
+      - .:/workarea
+      
+  test:
+    build: .
+    command: pytest -v
+    volumes:
+      - .:/workarea
+    depends_on: 
+      - riot-api-publisher-discord-bot
